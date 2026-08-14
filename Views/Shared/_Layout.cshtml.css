@@ -1,42 +1,90 @@
-﻿/* Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
+﻿:root {
+  --bg: #0b1020;
+  --surface: rgba(15, 23, 42, 0.88);
+  --surface-soft: rgba(30, 41, 59, 0.78);
+  --text-primary: #f3f4f6;
+  --text-secondary: #94a3b8;
+  --primary: #4f46e5;
+  --primary-hover: #6366f1;
+  --primary-soft: rgba(79, 70, 229, 0.2);
+  --border: rgba(148, 163, 184, 0.18);
+  --shadow: 0 24px 60px rgba(2, 6, 23, 0.4);
+}
 
 a.navbar-brand {
   white-space: normal;
   text-align: center;
   word-break: break-all;
+  color: var(--text-primary);
+  font-weight: 700;
 }
 
 a {
-  color: #0077cc;
+  color: var(--primary);
 }
 
 .btn-primary {
   color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+  background: linear-gradient(135deg, var(--primary), #4f46e5);
+  border-color: transparent;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
+  background: linear-gradient(135deg, var(--primary-hover), #4338ca) !important;
+  border-color: transparent !important;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
   color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+  background: linear-gradient(135deg, var(--primary), #4f46e5);
+  border-color: transparent;
 }
 
 .border-top {
-  border-top: 1px solid #e5e5e5;
+  border-top: 1px solid var(--border) !important;
 }
+
 .border-bottom {
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 1px solid var(--border) !important;
 }
 
 .box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+  box-shadow: var(--shadow);
 }
 
 button.accept-policy {
   font-size: 1rem;
   line-height: inherit;
+}
+
+.navbar {
+  background: var(--surface) !important;
+  backdrop-filter: blur(12px);
+}
+
+.navbar a,
+.navbar-brand,
+.navbar button {
+  color: var(--text-primary) !important;
+}
+
+.navbar a:hover,
+.navbar-brand:hover {
+  color: var(--primary) !important;
+}
+
+.nav-link {
+  font-weight: 500;
+}
+
+body {
+  color: var(--text-primary);
+  background:
+    radial-gradient(circle at top left, rgba(79, 70, 229, 0.22), transparent 26%),
+    radial-gradient(circle at top right, rgba(37, 99, 235, 0.14), transparent 22%),
+    var(--bg);
 }
 
 .footer {
@@ -45,4 +93,82 @@ button.accept-policy {
   width: 100%;
   white-space: nowrap;
   line-height: 60px;
+  color: var(--text-secondary);
+}
+
+.hero-shell {
+  min-height: calc(100vh - 170px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem 4rem;
+}
+
+.hero-card {
+  width: min(100%, 920px);
+  padding: 3rem 2rem;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  border-radius: 1.75rem;
+  box-shadow: 0 24px 60px rgba(2, 6, 23, 0.42);
+  backdrop-filter: blur(10px);
+}
+
+.hero-kicker {
+  display: inline-block;
+  margin-bottom: 0.75rem;
+  padding: 0.25rem 0.7rem;
+  border-radius: 999px;
+  background: rgba(79, 70, 229, 0.18);
+  color: #c7d2fe;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.hero-title {
+  margin: 0;
+  font-size: clamp(2.4rem, 4vw, 4.2rem);
+  line-height: 1.05;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.hero-subtitle {
+  margin-top: 0.9rem;
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+}
+
+.hero-divider {
+  width: min(100%, 760px);
+  margin: 2rem auto;
+  border-top: 1px solid var(--border);
+}
+
+.hero-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  margin-top: 1.5rem;
+}
+
+.hero-item {
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  background: rgba(30, 41, 59, 0.9);
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.hero-item span {
+  color: var(--primary);
+}
+
+.login-link,
+.register-link {
+  color: #c7d2fe !important;
+  font-weight: 600;
 }

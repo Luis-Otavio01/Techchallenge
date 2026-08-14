@@ -1,16 +1,43 @@
-@model TechChallenge.LoginViewModel;
+@model TechChallenge.LoginViewModel
+
 @{
     ViewData["Title"] = "Login";
 }
-<form asp-action="Login" method="post">
-    <input asp-for="Email" class="form-control"/>
-    <span asp-validation-for="Email"></span>
 
-    <input asp-for="Senha" class="form-control" type="password"/>
-    <span asp-validation-for="Senha"></span>
+<div class="auth-shell">
+    <div class="auth-card">
+        <div class="auth-card__header">
+            <span class="auth-kicker">TechChallenge</span>
+            <h1>Entrar</h1>
+            <p>Acesse sua conta com e-mail e senha.</p>
+        </div>
 
-    <input asp-for="Lembrar" type="checkbox"/>
-    <label asp-for="Lembrar">Lembrar-me</label>
+        <form asp-action="Login" method="post" class="auth-form">
+            <div asp-validation-summary="ModelOnly" class="text-danger auth-summary"></div>
 
-    <button type="submit">Entrar</button>
-</form>
+            <input asp-for="ReturnUrl" type="hidden" />
+
+            <div class="mb-3">
+                <label asp-for="Email" class="form-label"></label>
+                <input asp-for="Email" class="form-control" placeholder="Digite seu email" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Senha" class="form-label"></label>
+                <input asp-for="Senha" class="form-control" type="password" placeholder="Digite sua senha" />
+                <span asp-validation-for="Senha" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Entrar</button>
+        </form>
+
+        <div class="auth-card__footer">
+            Não possui conta? <a asp-controller="Account" asp-action="Register">Cadastrar</a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

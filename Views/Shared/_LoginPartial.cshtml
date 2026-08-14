@@ -6,11 +6,11 @@
     <span>Ola, @User.Identity?.Name!</span>
     <form asp-action="Logout" method="post">
         @Html.AntiForgeryToken()
-        <button type="submit">Sair</button>
+        <button type="submit" class="btn btn-sm btn-primary ms-2">Sair</button>
     </form>
 }
 else
 {
-    <a asp-controller="Account" asp-action="Register">Cadastro </a>
-    <a asp-controller="Account" asp-action="Login"> Entrar</a>
+    <a asp-controller="Account" asp-action="Register" class="register-link me-2">Cadastro</a>
+    <a asp-controller="Account" asp-action="Login" class="login-link">Entrar</a>
 }
