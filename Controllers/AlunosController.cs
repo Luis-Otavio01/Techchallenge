@@ -10,7 +10,7 @@ using TechChallenge;
 
 namespace TechChallenge.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Professor, Admin")]
     public class AlunosController : Controller
     {
         private readonly AppDbContext _context;
@@ -82,7 +82,7 @@ namespace TechChallenge.Controllers
             }
             return View(aluno);
         }
-        
+
 
         // POST: Alunos/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.

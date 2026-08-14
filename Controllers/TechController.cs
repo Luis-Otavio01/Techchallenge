@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace TechChallenge.Controllers;
@@ -25,6 +26,7 @@ public class TechController : Controller
         return View();
     }
 
+    [Authorize(Roles = "Professor, Admin")]
     public IActionResult Dashboard()
     {
         var desafios = new List<dynamic>

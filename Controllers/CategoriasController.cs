@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,7 @@ using TechChallenge;
 
 namespace TechChallenge.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class CategoriasController : Controller
     {
         private readonly AppDbContext _context;
@@ -57,7 +59,7 @@ namespace TechChallenge.Controllers
         {
             if (_context.Categorias.Any(c => c.Nome == categoria.Nome))
             {
-                ModelState.AddModelError("Nome","Já existe um categoria com esse nome.");
+                ModelState.AddModelError("Nome", "Já existe um categoria com esse nome.");
             }
 
             if (ModelState.IsValid)

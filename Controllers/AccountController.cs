@@ -10,7 +10,7 @@ public class AccountController : Controller
     private readonly SignInManager<IdentityUser> _signInManager;
     private readonly RoleManager<IdentityRole> _roleManager;
 
-    public AccountController(UserManager<IdentityUser> userManager,SignInManager<IdentityUser> signInManager,RoleManager<IdentityRole> roleManager)
+    public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager)
     {
         _userManager = userManager;
         _signInManager = signInManager;
@@ -33,7 +33,8 @@ public class AccountController : Controller
     // =====================================
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Register(RegisterViewModel model){
+    public async Task<IActionResult> Register(RegisterViewModel model)
+    {
         if (!ModelState.IsValid)
         {
             return View(model);
@@ -42,7 +43,7 @@ public class AccountController : Controller
         var existingUser = await _userManager.FindByEmailAsync(model.Email);
         if (existingUser != null)
         {
-            ModelState.AddModelError("","Este email já está cadastrado.");
+            ModelState.AddModelError("", "Este email já está cadastrado.");
             return View(model);
         }
 
@@ -63,14 +64,14 @@ public class AccountController : Controller
                 await _roleManager.CreateAsync(new IdentityRole(model.Role));
             }
             // Adiciona Role ao usuário
-            await _userManager.AddToRoleAsync(user,model.Role);
+            await _userManager.AddToRoleAsync(user, model.Role);
             // Login automático após cadastro
-            await _signInManager.SignInAsync(user,isPersistent: false);
+            await _signInManager.SignInAsync(user, isPersistent: false);
 
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Index", "Home");
         }
 
-        foreach(var error in result.Errors)
+        foreach (var error in result.Errors)
         {
             ModelState.AddModelError(
                 "",
@@ -118,16 +119,27 @@ public class AccountController : Controller
         }
 
         var result = await _signInManager
-            .PasswordSignInAsync(model.Email,model.Senha,model.Lembrar,
+            .PasswordSignInAsync(model.Email, model.Senha, model.Lembrar,
                 lockoutOnFailure: false);
-            
+
         if (result.Succeeded)
         {
             if (!string.IsNullOrEmpty(model.ReturnUrl))
             {
                 return Redirect(model.ReturnUrl);
             }
-            return RedirectToAction("Index","Home");
+
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            if (user != null)
+            {
+                if (await _userManager.IsInRoleAsync(user, "Admin") ||
+                    await _userManager.IsInRoleAsync(user, "Professor"))
+                {
+                    return RedirectToAction("Dashboard", "Tech");
+                }
+            }
+
+            return RedirectToAction("Index", "Home");
         }
 
 
@@ -154,7 +166,7 @@ public class AccountController : Controller
         await _signInManager.SignOutAsync();
 
 
-        return RedirectToAction("Index","Tech");
+        return RedirectToAction("Index", "Tech");
     }
 
 
