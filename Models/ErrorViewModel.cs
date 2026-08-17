@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace TechChallenge.Models;
 
 public class ErrorViewModel

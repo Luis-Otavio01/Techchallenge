@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-[Authorize(Roles = "Admin")]
+[Authorize(Roles = "Admin, Aluno")]
 public class AdminController : Controller
 {
     private readonly UserManager<IdentityUser> _userManager;
